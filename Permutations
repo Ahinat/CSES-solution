@@ -1,0 +1,12 @@
+n = int(input())
+if n == 2 or n == 3:
+    print('NO SOLUTION')
+else:
+    x = 2
+    while x <= n:
+        print(x, end = ' ')
+        x += 2
+    x = 1
+    while x <= n:
+        print(x, end = ' ')
+        x += 2
