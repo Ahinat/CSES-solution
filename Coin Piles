@@ -1,0 +1,13 @@
+t = int(input())
+for t in range(t):
+    a, b = input().split()
+    a = int(a)
+    b = int(b)
+    if a < b:
+        a,b = b,a
+    if a > 2*b:
+        print('NO')
+    elif (a+b)%3 == 0:
+        print('YES')
+    else:
+        print('NO')
