@@ -1,0 +1,35 @@
+str = input()
+alpha_count = [0]*26
+for i in str:
+    alpha_count[ord(i) - 65] += 1 # counting number of alphabets
+
+odd_count = 0
+for i in alpha_count:
+    if i%2 != 0:
+        odd_count += 1
+
+if odd_count > 1:
+    print('NO SOLUTION') # it cannot be a palidrome if there is more than 1 letter with odd count
+
+else:
+    pos = -1
+    for i in range(0, 26): # finding the letter with odd count
+        if alpha_count[i]%2 == 0:
+            pos += 1
+        else:
+            pos += 1
+            break
+    
+    for i in range(0, 26): # printing first half of letters with even count
+        if alpha_count[i]%2 == 0:
+            print(chr(i+65)*int(alpha_count[i]/2), end='')
+            alpha_count[i] = int(alpha_count[i]/2)
+    
+    print(chr(pos+65)*alpha_count[pos], end='') # printing the letter with odd count in the middle
+    alpha_count[pos] = 0 # so that the letter with odd count get printed only once
+    
+    alpha_count.reverse() # reversing the list of count to access the letter backwards
+    
+    for i in range(0, 26): # printing rest of the letters with even count backwards
+        if alpha_count[i] != 0:
+            print(chr(90-i)*alpha_count[i], end='')
