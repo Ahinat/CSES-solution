@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define nn '\n'
+#define fo(x,n) for(ll i=x; i<n; i++)
+
+ll ans = 20e9, current = 0; // declaring variables to store current sum of weight for the choice and ans
+
+
+//Now we are going to define a function to generate permutation of 0s and 1s where 1 represents the apple is taken for another group
+//then in this function when the choice string is complete, we are going to multiply the weights of the apples with their choice and store the sum
+//then we will subtract the sum of apple taken from the total to get the weight of apples that are not chosen
+//then we will take the difference of weight of apples taken and not taken
+//then we will store the minimum value of the ans and current sum
+void generate(ll zeros, ll ones, string permutation, ll a[], ll n, ll total) {
+    if (n == permutation.size()) {
+        fo(0, n){
+            current += a[i]*(permutation[i]-48);
+        }
+        current = abs((total - current) - current);
+        ans = min(ans, current);
+        current = 0;
+        return;
+    }
+    //This is a recursive function that will append 0s and 1s at the end of the empty string we passed from the main()
+    //Therefore it will produce all permutations for 0s and 1s for length n
+    generate(zeros + 1, ones, permutation + "0", a, n, total);
+    generate(zeros, ones + 1, permutation + "1", a, n, total);
+}
+
+//As ans is a global variable, we can take the input from user and call generate() which will store the ans
+//Now we can print the ans in the main()
+int main () {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    ll n, total = 0;
+    cin >> n;
+    ll a[n];
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        total += a[i];
+    }
+
+    string permutation = "";
+    generate(0, 0, permutation, a, n, total);
+
+    cout << ans << nn;
+
+    return 0;
+}
