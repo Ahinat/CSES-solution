@@ -1,0 +1,22 @@
+n, m, k = map(int, input().split())
+
+a = list(map(int, input().split()))
+a.sort()
+
+b = list(map(int, input().split()))
+b.sort()
+
+i, j, ans = 0, 0, 0
+
+while i < n and j < m:
+    x = b[j]
+    if a[i] >= x-k and a[i] <= x+k:
+        i += 1
+        j += 1 
+        ans += 1
+    elif a[i] < x-k:
+        i += 1
+    elif a[i] > x+k:
+        j += 1
+
+print(ans)
