@@ -1,0 +1,24 @@
+ans = [] # declaring list to store ans
+
+def swap(str, i, l): # defining function to swap two characters in a string
+    char_list = list(str)
+    char_list[i], char_list[l] = char_list[l], char_list[i]
+    new_str = ''.join(char_list)
+    return new_str
+
+def permute(str, l, r): # defining function to permute the characters and storing them in ans list
+    if l == r:
+        ans.append(str)
+    else:
+        for i in range(l, r+1):
+            str = swap(str, i, l)
+            permute(str, l+1, r)
+            str = swap(str, i, l)
+
+str = input() # taking string input
+permute(str, 0, len(str)-1) # calling the function to permute
+ans = list(dict.fromkeys(ans)) # removing duplicate answers
+ans.sort() # sorting the answers
+print(len(ans)) # printing number of answers
+for i in ans: # printing answers
+    print(i)
