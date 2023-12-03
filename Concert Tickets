@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define nn '\n'
+#define fo(x,n) for(ll i=x; i<n; i++)
+
+int main () {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    int n, m;
+    cin >> n >> m;
+    multiset<int> h; // set of values ordered by default but multiset can contain duplicate values
+    fo(0, n){
+        int x;
+        cin >> x;
+        h.insert(x);
+    }
+    fo(0, m){
+        int t;
+        cin >> t;
+        auto ans = h.upper_bound(t); // getting the iterator of the first value that is greater than t
+        // if the first element that is greater than t is also the first element of the multiset, means lowest value of the multiset is higher than t
+        // in this case customer can't buy any ticket
+        if(ans == h.begin()) cout << -1 << nn;
+        // if the customer can buy a ticket then we get the price of the ticket by shifting back the iterator by 1 position
+        // by this we get the last value that is in the range of customer's budget
+        // then we remove the ticket that is occupied/sold
+        else{
+            ans--;
+            cout << *ans << nn;
+            h.erase(ans);
+        }
+    }
+    return 0;
+}
