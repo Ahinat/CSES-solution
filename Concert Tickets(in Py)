@@ -1,0 +1,35 @@
+As python is a much slower language, this program will end up with TLE
+But this is for a better understanding and alternate solution of the program I did in C++
+
+
+Solution:-
+# we define a function to get the index of the first value that is greater than t
+def upper_bound(array, length, x):
+    low, high, ans = 0, length-1, length
+    while low <= high:
+        mid = int((low + high) / 2)
+        if array[mid] > x:
+            ans = mid
+            high = mid - 1
+        else:
+            low = mid + 1
+    return ans
+
+n, m = map(int, input().split())
+h = list(map(int, input().split()))
+t = list(map(int, input().split()))
+
+h.sort() # to get the ticket prices sorted for applying upper bound function which runs with the concept of binary search
+for j in t:
+    ans = upper_bound(h, len(h), j)
+    # if the first element that is greater than t is also the first element of the multiset, means lowest value of the multiset is higher than t
+    # in this case customer can't buy any ticket
+    if ans == 0:
+        print(-1)
+    # if the customer can buy a ticket then we get the price of the ticket by shifting back the index by 1 position
+    # by this we get the last value that is in the range of customer's budget
+    # then we remove the ticket that is occupied/sold
+    else:
+        ans -= 1
+        print(h[ans])
+        h.remove(h[ans])
