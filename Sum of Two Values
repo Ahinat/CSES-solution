@@ -1,0 +1,29 @@
+n, x = map(int, input().split())
+a = list(map(int, input().split()))
+
+# Creating pair list for list items and their position
+pair = [(a[i], i+1) for i in range(n)]
+# Sorting the pair list by their first element i.e. array elements
+# Their positions doesn't get sorted
+pair.sort()
+
+# Taking the first and last index/pointer
+i, j = 0, n-1
+while i < j:
+    # Getting the pair items as integers
+    p1, q1 = map(int, pair[i])
+    p2, q2 = map(int, pair[j])
+    # If the sum is greater than x the upper pointer should be decreased
+    if p1 + p2 > x:
+        j -= 1
+    # If the sum is less than x the lower pointer should be increased
+    elif p1 + p2 < x:
+        i += 1
+    # If the sum is equal to x print their position and break the loop
+    else:
+        print(q1, end=' ')
+        print(q2)
+        break
+# If the loop doesn't find the positions required, there is no possible answer
+if i >= j:
+    print("IMPOSSIBLE")
